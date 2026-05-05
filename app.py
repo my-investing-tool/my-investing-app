@@ -34,3 +34,12 @@ if ticker_symbol:
             st.info(f"Graham Fair Value: ₹{graham:.2f}")
         st.plotly_chart(go.Figure(data=[go.Scatter(x=df.index, y=df['Close'])]), use_container_width=True)
     except: st.error("Ticker check karein (Ex: RELIANCE.NS)")
+import streamlit as st
+
+# Search bar aur button ek saath
+ticker = st.text_input("Enter Stock Ticker (e.g. ITC, RELIANCE):", "ITC")
+
+if st.button('Search'):
+    st.write(f"Showing analysis for: {ticker}")
+    # Yahan aapka baki ka analysis code aayega
+    
