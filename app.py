@@ -43,3 +43,30 @@ if st.button('Search'):
     st.write(f"Showing analysis for: {ticker}")
     # Yahan aapka baki ka analysis code aayega
     
+import streamlit as st
+import yfinance as yf
+
+ticker_input = st.text_input("Enter Stock Ticker:", "ITC")
+
+if st.button('Search'):
+    # User input ko clean karein aur .NS add karein agar nahi hai toh
+    ticker_symbol = ticker_input.upper().strip()
+    
+    if not ticker_symbol.endswith(".NS") and not ticker_symbol.endswith(".BO"):
+        ticker_symbol = f"{ticker_symbol}.NS"
+    
+    try:
+        # Data fetch karne ki koshish karein
+        stock_data = yf.Ticker(ticker_symbol)
+        info = stock_data.info
+        
+        if 'longName' in info:
+            st.success(f"Fetching data for: {info['longName']}")
+            st.write(f"Current Price: ₹{info.get('currentPrice')}")
+            # Baaki ka analysis yahan print karein
+        else:
+            st.error("Ticker invalid hai. Please sahi symbol daalein (e.g., RELIANCE).")
+            
+    except Exception as e:
+        st.error(f"Error: {e}")
+        
